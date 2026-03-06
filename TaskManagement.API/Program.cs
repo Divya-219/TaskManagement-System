@@ -1,4 +1,10 @@
 
+using Microsoft.EntityFrameworkCore;
+using TaskManagement.Application.Abstractions.Persistence;
+using TaskManagement.Application.Services;
+using TaskManagement.Infrastructure;
+using TaskManagement.Infrastructure.Repository;
+
 namespace TaskManagement.API
 {
     public class Program
@@ -6,7 +12,11 @@ namespace TaskManagement.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<TaskDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+            builder.Services.AddScoped<TaskService>();
             // Add services to the container.
 
             builder.Services.AddControllers();

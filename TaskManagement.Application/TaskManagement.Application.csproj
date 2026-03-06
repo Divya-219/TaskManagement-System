@@ -8,9 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Messaging\" />
-    <Folder Include="Abstractions\Persistence\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\taskManagement.Domain\taskManagement.Domain.csproj" />
   </ItemGroup>
 
 </Project>
