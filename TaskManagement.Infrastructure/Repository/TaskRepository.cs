@@ -6,8 +6,8 @@ namespace TaskManagement.Infrastructure.Repository;
 
 public class TaskRepository: ITaskRepository
 {
-    private readonly TaskDbContext _context;
-    public TaskRepository(TaskDbContext context)
+    private readonly AppDbContext _context;
+    public TaskRepository(AppDbContext context)
     {
         _context = context;
     }
