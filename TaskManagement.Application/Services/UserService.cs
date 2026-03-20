@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using taskManagement.Domain.Entities;
 using TaskManagement.Application.Abstractions.Persistence;
 using BCrypt.Net;
+using System.Runtime.CompilerServices;
 
 namespace TaskManagement.Application.Services
 {
     public class UserService
     {
         private readonly IUserRepository _userRepository;
+        private  readonly IJwtService _jwtService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IJwtService jwtService)
         {
             _userRepository = userRepository;
+            _jwtService = jwtService;
         }
         public async Task<User> RegisterUserAsync(string name, string email, string password, UserRole role)
         {
@@ -37,8 +40,23 @@ namespace TaskManagement.Application.Services
             return user;
 
         }
+        public async Task<string>loginasync(string email, string password)
+        {
+            var user = await _userRepository.GetByEmailAsync(email);
+            if (user == null)
+                throw new Exception("email not found.");
+            var validPassword = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+            if (!validPassword)
+                throw new Exception("password not found");
+            return _jwtService.GenerateToken(user);
 
-        
+            
+
+
+
+        }
+
+
     }
     
 }

@@ -19,7 +19,7 @@ public class UserController : ControllerBase
 
 
     }
-    [HttpPost]
+    [HttpPost("register")]
 
     public async Task<ActionResult> Register([FromBody] RegisterUserRequest request)
 
@@ -41,6 +41,20 @@ public class UserController : ControllerBase
 
         return Ok(user);
     }
+    [HttpPost("login")]
+    public async Task<ActionResult> Login([FromBody] LoginRequest request)
+    {
+        try
+        {
+            var token = await _userService.loginasync(request.Email, request.Password);
+            return Ok(new { Token = token });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
 
 
 }
