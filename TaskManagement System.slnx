@@ -7,5 +7,7 @@
   <Folder Name="/src/TaskManagement.Infrastructure.Persistence/">
     <Project Path="TaskManagement.Infrastructure/TaskManagement.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="TaskManagement.Tests/TaskManagement.Tests.csproj" Id="2f06c7d7-19cc-44bb-a992-3dee36f863fb" />
+  </Folder>
 </Solution>
